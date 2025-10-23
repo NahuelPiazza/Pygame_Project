@@ -1,5 +1,6 @@
 import pygame as pg
-from configurations import display
+from settings import display
+
 
 
 
