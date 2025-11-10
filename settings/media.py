@@ -1,1 +1,0 @@
-ICON ="./media/icon.png"
