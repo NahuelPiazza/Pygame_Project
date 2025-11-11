@@ -1,8 +1,12 @@
+import constants as const
+
+
+
 # Configuration settings for the game world
 
-WORLD_WIDTH = 800
-WORLD_HEIGHT = 600
+WORLD_WIDTH = 1200
+WORLD_HEIGHT = 800
 
 def create_world(screen):
     # Fill the screen with a light gray color
-    screen.fill((200, 200, 200))
+    screen.fill((const.BLACK))

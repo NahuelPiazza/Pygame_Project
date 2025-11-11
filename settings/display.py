@@ -1,4 +1,4 @@
 # this file contains display settings for the application
 
-HEIGHT = 600
-WIDTH = 1200
+WIDTH = 600
+HEIGHT = 400
