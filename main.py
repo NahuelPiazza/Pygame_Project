@@ -24,12 +24,19 @@ fondo = pg.transform.scale(fondo, (world_config.WORLD_WIDTH, world_config.WORLD_
 
 #texto
 fuente = pg.font.Font("fonts/Oswald/static/Oswald-Bold.ttf", 50) #definimos la fuente y el tamaño
-text = font.render("BIENVENIDO BRO ", True, (255, 255  , 255)) #le damos color
+text = font.render("BIENVENIDO A BUSHIDO ", True, (255, 255  , 255)) #le damos color
 
 text_x = 300 #modifcas posicion horizontal del texto
 text_y = 50 #modifcas altura del texto
+#imagenes
+personaje_img = pg.image.load("media/samuraikk.png").convert_alpha()
+personaje_img = pg.transform.scale(personaje_img, (80, 80))
+
+personaje_walk = pg.image.load("media/samukaii.png").convert_alpha()
+personaje_walk = pg.transform.scale(personaje_walk, (80, 80))
+
+
 #bucle principal
-personaje_img = pg.image.load("media/samuraikk.png")
 def main():
     clock = pg.time.Clock()
     world =  world_config.WORLD_WIDTH, world_config.WORLD_HEIGHT
@@ -46,34 +53,45 @@ def main():
 
         # direccionamiento del personaje
         dx, dy = 0, 0
+        moving = False
         keys = pg.key.get_pressed() #obtiene las teclas que se estan presionando
         if keys[pg.K_LEFT]:
             dx -= 5
+            moving = True
         if keys[pg.K_RIGHT]:
             dx += 5
+            moving = True
         if keys[pg.K_UP]:
             dy -= 5
+            moving = True
         if keys[pg.K_DOWN]:
             dy += 5
-
+            moving = True
+        
         # aplica movimiento
         position_x, position_y = character.move_character(position_x, position_y, dx, dy, bounds=(world_config.WORLD_WIDTH, world_config.WORLD_HEIGHT), size=20)
         movement = (dx, dy)
         print(movement )
-
+        
         # frames por segundo
         clock.tick(60)
-
+        
         #crear el mundo 
         world_config.create_world(window)   
+        
         screen.blit(fondo, (0,0)) #dibuja el fondo en la pantalla, importante ponerlo antes de crear personaje
         #dibuja el personaje
         #character.draw_character(window, ("red"),position_x, position_y,  size= 20)
-        try:
-            rect_personaje = character.dibujar_personaje(window, personaje_img,position_x, position_y,  size= 60)#creamos el personaje
-        except FileNotFoundError:
-            imagen_sprite = pg.surface((50, 50))
-            imagen_sprite.fill((255, 0, 0))
+        if moving:
+            screen.blit(personaje_walk,(position_x, position_y,))
+
+        else:
+            screen.blit(personaje_img,(position_x, position_y,))
+        #try:
+        #    rect_personaje = character.dibujar_personaje(window, personaje_img,position_x, position_y,  size= 60)#creamos el personaje
+        #except FileNotFoundError:
+        #    imagen_sprite = pg.surface((50, 50))
+        #    imagen_sprite.fill((255, 0, 0))
          #dibuja el texto en la pantalla
         screen.blit(text, (text_x, text_y)) #dibuja el texto en la pantalla
         #obtener y mostrar la posicion del mouse
